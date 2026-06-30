@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Catálogo completo de productos estudiantiles de UTP Marketplace.">
+  <title>Catálogo | UTP Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="header-utp">
+    <div class="container-utp header-container">
+      <a class="brand" href="index.html" id="navbar-logo-link">
+        UTP<span>Marketplace</span>
+      </a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html" id="nav-home-link">Inicio</a></li>
+          <li><a href="catalog.html" class="active" id="nav-catalog-link">Catálogo</a></li>
+          <li><a href="detail.html" id="nav-detail-link">Detalles</a></li>
+          <li><a href="cart.html" class="btn-cart-nav" id="nav-cart-btn">Mi Carrito</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="py-5">
+    <div class="container-utp">
+      
+      <div class="text-center mb-5 fade-in-on-load">
+        <h1 class="fw-bold display-6 mb-2">Catálogo Estudiantil</h1>
+        <p class="text-muted">Explora artículos publicados por tus compañeros de clase.</p>
+      </div>
+
+      <div class="catalog-controls-layout fade-in-on-load" id="catalog-controls">
+        <div class="search-box">
+          <input type="text" class="form-control py-2" placeholder="Buscar producto..." id="search-input">
+        </div>
+        <div class="filter-group" id="category-filter-group">
+          <button class="filter-pill active" data-category="todos" id="pill-all">Todos</button>
+          <button class="filter-pill" data-category="Libros" id="pill-books">Libros</button>
+          <button class="filter-pill" data-category="Tecnología" id="pill-tech">Tecnología</button>
+          <button class="filter-pill" data-category="Servicios" id="pill-services">Servicios</button>
+          <button class="filter-pill" data-category="Otros" id="pill-others">Otros</button>
+        </div>
+      </div>
+
+      <div class="product-grid" id="product-grid">
+        
+        <!-- Producto 1 -->
+        <div class="product-card fade-in-on-load" data-category="Tecnología">
+          <span class="product-badge badge-new">Como nuevo</span>
+          <div class="product-image-wrapper">
+            <img src="images/casio.jpg" alt="Calculadora Científica Casio">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Tecnología</span>
+            <h3 class="product-title">
+              <a href="detail.html?id=1">Calculadora Científica Casio FX-991LA Plus</a>
+            </h3>
+            <p class="product-description">Calculadora científica en excelente estado, ideal para ingeniería. Incluye tapa protectora.</p>
+            <div class="product-meta-row">
+              <div class="product-price"><span>S/</span>120.00</div>
+              <div class="product-seller">Por: Carlos Mendoza</div>
+            </div>
+            <div class="product-actions">
+              <a href="detail.html?id=1" class="btn-utp-outline flex-grow-1 text-center py-2">Detalles</a>
+              <button class="btn-utp px-3 py-2 btn-add-cart" data-title="Calculadora Científica Casio FX-991LA Plus" data-price="120.00">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="product-card fade-in-on-load" data-category="Libros">
+          <span class="product-badge badge-used">Usado</span>
+          <div class="product-image-wrapper">
+            <img src="images/libro.jpg" alt="Libro de Cálculo Thomas">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Libros</span>
+            <h3 class="product-title">
+              <a href="detail.html?id=2">Libro de Cálculo de Una Variable - Thomas</a>
+            </h3>
+            <p class="product-description">14ª edición del libro de Thomas. Estado físico impecable con apuntes a lápiz.</p>
+            <div class="product-meta-row">
+              <div class="product-price"><span>S/</span>85.00</div>
+              <div class="product-seller">Por: Andrea Flores</div>
+            </div>
+            <div class="product-actions">
+              <a href="detail.html?id=2" class="btn-utp-outline flex-grow-1 text-center py-2">Detalles</a>
+              <button class="btn-utp px-3 py-2 btn-add-cart" data-title="Libro de Cálculo de Una Variable - Thomas" data-price="85.00">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="product-card fade-in-on-load" data-category="Servicios">
+          <span class="product-badge badge-service">Servicio</span>
+          <div class="product-image-wrapper">
+            <img src="images/asesoria.jpg" alt="Asesorías Física">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Servicios</span>
+            <h3 class="product-title">
+              <a href="detail.html?id=3">Asesorías Personalizadas - Física I y II</a>
+            </h3>
+            <p class="product-description">Resolución de prácticas y preparación de exámenes presencial o virtual.</p>
+            <div class="product-meta-row">
+              <div class="product-price"><span>S/</span>20.00</div>
+              <div class="product-seller">Por: Miguel Soto</div>
+            </div>
+            <div class="product-actions">
+              <a href="detail.html?id=3" class="btn-utp-outline flex-grow-1 text-center py-2">Detalles</a>
+              <button class="btn-utp px-3 py-2 btn-add-cart" data-title="Asesorías Personalizadas - Física I y II" data-price="20.00">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Producto 4 -->
+        <div class="product-card fade-in-on-load" data-category="Otros">
+          <span class="product-badge badge-new">Como nuevo</span>
+          <div class="product-image-wrapper">
+            <img src="images/bata.jpg" alt="Bata de Laboratorio UTP">
+          </div>
+          <div class="product-info">
+            <span class="product-category">Otros</span>
+            <h3 class="product-title">
+              <a href="detail.html?id=4">Bata de Laboratorio UTP - Talla M</a>
+            </h3>
+            <p class="product-description">Bata blanca manga larga con logo de la UTP. Usada para prácticas de Química.</p>
+            <div class="product-meta-row">
+              <div class="product-price"><span>S/</span>35.00</div>
+              <div class="product-seller">Por: Juan Pérez</div>
+            </div>
+            <div class="product-actions">
+              <a href="detail.html?id=4" class="btn-utp-outline flex-grow-1 text-center py-2">Detalles</a>
+              <button class="btn-utp px-3 py-2 btn-add-cart" data-title="Bata de Laboratorio UTP - Talla M" data-price="35.00">Añadir</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-dark text-white text-center py-4" id="site-footer">
+    <div class="container-utp">
+      <p class="mb-0 small">&copy; 2026 UTP Marketplace. Proyecto Académico de CSS Avanzado.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
