@@ -1,4 +1,4 @@
-// 1. Lista de productos (Base de datos)
+// 1. Lista de productos (Base de datos simulada en español)
 const PRODUCTOS = [
   {
     id: 1,
@@ -48,18 +48,18 @@ const PRODUCTOS = [
 
 window.onload = function() {
 
-  // 2. AÑADIR PRODUCTOS AL CARRITO 
+  // 2. AÑADIR PRODUCTOS AL CARRITO
   const botonesComprar = document.querySelectorAll('.btn-add-cart');
   botonesComprar.forEach(function(boton) {
     boton.onclick = function(evento) {
       evento.preventDefault();
       
-      const id = parseInt(boton.getAttribute('data-id'));
+      const tituloBoton = boton.getAttribute('data-title');
       
       // Buscar el producto en la lista
       let prodElegido = null;
       for (let i = 0; i < PRODUCTOS.length; i++) {
-        if (PRODUCTOS[i].id === id) {
+        if (PRODUCTOS[i].nombre === tituloBoton) {
           prodElegido = PRODUCTOS[i];
           break;
         }
@@ -67,12 +67,15 @@ window.onload = function() {
 
       if (prodElegido) {
         let carrito = JSON.parse(localStorage.getItem('utp_cart')) || [];
+        const id = prodElegido.id;
         
         // Ver si ya existe en el carrito
         let encontrado = false;
         for (let j = 0; j < carrito.length; j++) {
           if (carrito[j].id === id) {
-            carrito[j].cantidad += 1;
+            const qty = parseInt(carrito[j].cantidad || carrito[j].quantity || 1);
+            carrito[j].cantidad = qty + 1;
+            delete carrito[j].quantity; // Normalizar a español
             encontrado = true;
             break;
           }
@@ -96,7 +99,7 @@ window.onload = function() {
     };
   });
 
-  // 3. BÚSQUEDA Y FILTRADO (catalog.html)
+  //3. BÚSQUEDA Y FILTRADO (catalog.html)
   const buscador = document.getElementById('search-input');
   const botonesFiltro = document.querySelectorAll('.filter-pill');
   const tarjetas = document.querySelectorAll('.product-card');
@@ -122,7 +125,7 @@ window.onload = function() {
       });
     }
 
-    // botones de filtros
+    // Configurar los botones de filtros
     botonesFiltro.forEach(function(boton) {
       boton.onclick = function() {
         botonesFiltro.forEach(function(b) { b.classList.remove('active'); });
@@ -132,7 +135,7 @@ window.onload = function() {
       };
     });
 
-    // barra del buscador
+    // caja de texto del buscador
     if (buscador) {
       buscador.oninput = function(e) {
         textoBusqueda = e.target.value.toLowerCase().trim();
@@ -141,7 +144,7 @@ window.onload = function() {
     }
   }
 
-  // 4. CARGAR DETALLE DE PRODUCTO (detail.html
+  // 4. CARGAR DETALLE DE PRODUCTO (detail.html)
   const contenedorDetalle = document.getElementById('product-detail-container');
   if (contenedorDetalle) {
     const parametros = new URLSearchParams(window.location.search);
@@ -174,7 +177,7 @@ window.onload = function() {
 
       const botonDetalleComprar = document.getElementById('detail-add-btn');
       if (botonDetalleComprar) {
-        botonDetalleComprar.setAttribute('data-id', p.id);
+        botonDetalleComprar.setAttribute('data-title', p.nombre);
       }
     }
   }
@@ -202,24 +205,31 @@ window.onload = function() {
       let subtotal = 0;
 
       carrito.forEach(function(item, index) {
-        const totalFila = item.precio * item.cantidad;
+        // Soporte robusto y unificado para claves en español o inglés antiguas
+        const nombre = item.nombre || item.title || "Producto";
+        const precio = parseFloat(item.precio || item.price || 0);
+        const imagen = item.imagen || item.image || "images/default.jpg";
+        const vendedor = item.vendedor || item.seller || "Vendedor UTP";
+        const cantidad = parseInt(item.cantidad || item.quantity || 1);
+
+        const totalFila = precio * cantidad;
         subtotal += totalFila;
 
         const fila = document.createElement('tr');
         fila.innerHTML = `
           <td>
             <div class="cart-item-info">
-              <img src="${item.imagen}" class="cart-item-img">
+              <img src="${imagen}" class="cart-item-img">
               <div>
-                <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">${item.nombre}</h5>
-                <span class="text-muted small">Por: ${item.vendedor}</span>
+                <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">${nombre}</h5>
+                <span class="text-muted small">Por: ${vendedor}</span>
               </div>
             </div>
           </td>
-          <td class="align-middle">S/ ${item.precio.toFixed(2)}</td>
+          <td class="align-middle">S/ ${precio.toFixed(2)}</td>
           <td class="align-middle">
             <button class="btn btn-sm btn-light border py-0 px-2 btn-restar" data-index="${index}">-</button>
-            <span class="mx-2">${item.cantidad}</span>
+            <span class="mx-2">${cantidad}</span>
             <button class="btn btn-sm btn-light border py-0 px-2 btn-sumar" data-index="${index}">+</button>
           </td>
           <td class="align-middle fw-bold">S/ ${totalFila.toFixed(2)}</td>
@@ -234,15 +244,19 @@ window.onload = function() {
       document.getElementById('summary-total').innerText = 'S/ ' + subtotal.toFixed(2);
     }
 
-    // eventos para la tabla del carrito
+    // eventos para la tabla del carrito 
     tablaCarrito.onclick = function(e) {
       const boton = e.target;
       const index = parseInt(boton.getAttribute('data-index'));
       
-      // Si el elemento clicado no tiene un data-index válido, ignorar
       if (isNaN(index)) return;
 
       let carrito = JSON.parse(localStorage.getItem('utp_cart')) || [];
+      
+      // Normalizar cantidades y claves
+      const qtyCurrent = parseInt(carrito[index].cantidad || carrito[index].quantity || 1);
+      carrito[index].cantidad = qtyCurrent;
+      delete carrito[index].quantity; 
 
       if (boton.classList.contains('btn-sumar')) {
         carrito[index].cantidad += 1;
@@ -254,7 +268,7 @@ window.onload = function() {
       } else if (boton.classList.contains('btn-borrar')) {
         carrito.splice(index, 1);
       } else {
-        return; // Salir si se hizo clic en otra parte de la fila
+        return; 
       }
 
       localStorage.setItem('utp_cart', JSON.stringify(carrito));
