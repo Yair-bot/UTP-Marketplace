@@ -38,4 +38,55 @@
   <script src="js/main.js"></script>
 
 </body>
+  <!-- Contenido Principal -->
+  <main class="py-5">
+    <div class="container-utp">
+      
+      <!-- Enlace para volver -->
+      <a href="catalog.html" class="back-link-utp" id="back-catalog-link">&larr; Volver al Catálogo</a>
+
+      <!-- Contenedor del Detalle de Producto (Flexbox en SASS) -->
+      <div class="product-detail-layout" id="product-detail-container">
+        
+        <!-- Columna Izquierda: Imagen -->
+        <div class="detail-image-panel">
+          <div class="detail-image-box">
+            <img src="" alt="" id="detail-img">
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Información -->
+        <div class="detail-info-panel">
+          <div class="detail-header">
+            <span class="product-badge" id="detail-condition-badge">
+              <span id="detail-condition"></span>
+            </span>
+            <span class="detail-category-label" id="detail-category"></span>
+          </div>
+
+          <h1 class="detail-product-title" id="detail-title"></h1>
+          <div class="detail-price-tag">S/ <span id="detail-price"></span></div>
+
+          <div class="detail-section">
+            <h3 class="detail-section-title">Descripción del artículo</h3>
+            <p class="detail-description-text" id="detail-description"></p>
+          </div>
+
+          <!-- Cuadro de Información del Vendedor -->
+          <div class="seller-card-box">
+            <h3 class="seller-card-title">Datos del Estudiante Vendedor</h3>
+            <p class="seller-detail"><strong>Nombre:</strong> <span id="detail-seller"></span></p>
+            <p class="seller-detail"><strong>Correo institucional:</strong> <span id="detail-contact"></span></p>
+          </div>
+
+          <div class="detail-actions">
+            <button class="btn-utp px-4 py-3" id="detail-add-btn">Añadir al Carrito</button>
+            <a href="catalog.html" class="btn-utp-outline px-4 py-3 text-center">Ver otros artículos</a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
 </html>
