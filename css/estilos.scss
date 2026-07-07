@@ -1,4 +1,11 @@
-// 1. FUENTES Y VARIABLES
+// ==========================================================================
+// estilos.scss - SASS General y Maestro para UTP Marketplace
+// Contiene: Variables, Mixins, Estilos Globales, Animaciones y Menú Superior.
+// Rúbrica: 5 archivos SASS compilados en un único CSS.
+// ==========================================================================
+
+// 1. FUENTES Y VARIABLES (Variables)
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap');
 
 $utp-red: #D91A1A;
 $utp-red-dark: #A31010;
@@ -7,7 +14,7 @@ $body-bg: #F9FAFB;
 $font-main: 'Outfit', sans-serif;
 $transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-// 2. MIXINS
+// 2. MIXINS (Mixins Parametrizados)
 @mixin card-shadow {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
@@ -17,7 +24,15 @@ $transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   animation-delay: $delay;
 }
 
-// 3. KEYFRAMES (Requisito 1: Animación de entrada)
+@mixin panel-base($bg: white, $border-radius: 12px, $padding: 1.5rem) {
+  background-color: $bg;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: $border-radius;
+  padding: $padding;
+  @include card-shadow;
+}
+
+// 3. KEYFRAMES (Animaciones comunes)
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -36,30 +51,72 @@ body {
   color: #374151;
 }
 
+main {
+  min-height: 75vh;
+}
+
 .fade-in-on-load {
   @include animate-entrance(0.1s);
 }
 
-// 5. DISEÑO DE CONTENEDORES Y GRILLAS PROPIAS
+.back-link-utp {
+  color: $utp-red;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    color: $utp-red-dark;
+    transform: translateX(-4px);
+  }
+}
 
-// Contenedor Estándar Centrado
 .container-utp {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
 
-// Grilla de Productos
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
-  gap: 2rem;
-  padding: 1rem 0;
+// Botones comunes
+.btn-utp {
+  display: inline-block;
+  text-align: center;
+  background-color: $utp-red;
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: $transition-smooth;
+  text-decoration: none;
+  
+  &:hover {
+    background-color: $utp-red-dark;
+    color: white;
+    transform: scale(1.04);
+  }
 }
 
-// 6. ESTRUCTURA DE COMPONENTES (Nesting / Anidamiento)
+.btn-utp-outline {
+  display: inline-block;
+  text-align: center;
+  background-color: transparent;
+  color: #4B5563;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: $transition-smooth;
+  text-decoration: none;
+  
+  &:hover {
+    border-color: $utp-red;
+    color: $utp-red;
+    background-color: rgba($utp-red, 0.02);
+  }
+}
 
-// Encabezado Personalizado
+// 5. ENCABEZADO Y PIE DE PÁGINA (Flexbox)
 .header-utp {
   background-color: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
@@ -67,14 +124,12 @@ body {
   top: 0;
   z-index: 1000;
   padding: 1.1rem 0;
-  transition: $transition-smooth;
 
   .header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     
-    // Adaptación responsive del Header
     @media (max-width: 600px) {
       flex-direction: column;
       gap: 1rem;
@@ -118,265 +173,19 @@ body {
       border-radius: 8px;
       color: $utp-red;
       
-      &:hover {
+      &:hover, &.active {
         background-color: rgba($utp-red, 0.04);
         border-color: $utp-red;
-      }
-    }
-  }
-}
-
-// Hero Section
-.hero-section {
-  background-color: white;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  padding: 5rem 0;
-
-  .hero-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 3rem;
-
-    @media (max-width: 768px) {
-      flex-direction: column;
-      text-align: center;
-    }
-  }
-
-  .hero-text {
-    flex: 1;
-    
-    .hero-title {
-      font-size: 2.8rem;
-      font-weight: 700;
-      line-height: 1.2;
-      
-      span {
         color: $utp-red;
       }
     }
-    
-    p {
-      color: #6B7280;
-      margin: 1.25rem 0 1.75rem 0;
-      font-size: 1.1rem;
-    }
-  }
-
-  .hero-image {
-    flex: 1;
-    text-align: center;
-    
-    img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 12px;
-    }
   }
 }
 
-// Tarjeta de Producto
-.product-card {
-  background: white;
-  border: 1px solid rgba(0, 0, 0, 0.07);
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  transition: $transition-smooth;
-  @include card-shadow;
-  
-  &:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(217, 26, 26, 0.08);
-    border-color: rgba($utp-red, 0.15);
-  }
-
-  .product-badge {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    font-size: 0.7rem;
-    font-weight: 600;
-    padding: 0.3rem 0.6rem;
-    border-radius: 4px;
-    background-color: white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-    
-    &.badge-new { color: #059669; }
-    &.badge-used { color: #D97706; }
-    &.badge-service { color: #2563EB; }
-  }
-
-  .product-image-wrapper {
-    aspect-ratio: 4 / 3;
-    background-color: #F3F4F6;
-    
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .product-info {
-    padding: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-
-    .product-category {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #9CA3AF;
-      font-weight: 600;
-    }
-    
-    .product-title {
-      font-size: 1rem;
-      font-weight: 700;
-      margin: 0.4rem 0;
-      
-      a {
-        color: $utp-dark;
-        text-decoration: none;
-        transition: color 0.2s;
-        &:hover { color: $utp-red; }
-      }
-    }
-
-    .product-description {
-      font-size: 0.85rem;
-      color: #6B7280;
-      margin-bottom: 1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      height: 2.4rem;
-    }
-
-    .product-meta-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: auto;
-      font-size: 0.85rem;
-    }
-
-    .product-price {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: $utp-red;
-    }
-
-    .product-seller {
-      color: #6B7280;
-    }
-
-    .product-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-  }
-}
-
-// Botón Estándar
-.btn-utp {
-  background-color: $utp-red;
-  color: white;
-  border: none;
-  font-weight: 600;
-  border-radius: 8px;
-  transition: $transition-smooth;
-  text-decoration: none;
-  
-  &:hover {
-    background-color: $utp-red-dark;
-    color: white;
-    transform: scale(1.04);
-  }
-}
-
-.btn-utp-outline {
-  background-color: transparent;
-  color: #4B5563;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  font-weight: 600;
-  border-radius: 8px;
-  transition: $transition-smooth;
-  text-decoration: none;
-  
-  &:hover {
-    border-color: $utp-red;
-    color: $utp-red;
-    background-color: rgba($utp-red, 0.02);
-  }
-}
-
-// Controles del Catálogo
-.catalog-controls-layout {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  
-  @media (max-width: 768px) {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .search-box {
-    flex: 1;
-    max-width: 350px;
-    
-    @media (max-width: 768px) {
-      max-width: 100%;
-    }
-  }
-  
-  .filter-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-}
-
-// Filtros
-.filter-pill {
-  background-color: white;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  color: #4B5563;
-  padding: 0.4rem 1rem;
-  border-radius: 50rem;
-  font-weight: 500;
-  font-size: 0.85rem;
-  transition: $transition-smooth;
-  cursor: pointer;
-  
-  &:hover, &.active {
-    background-color: $utp-red;
-    border-color: $utp-red;
-    color: white;
-  }
-}
-
-//Páginas Incompletas
-.page-skeleton-hero {
-  padding: 6rem 0;
-  text-align: center;
-  
-  .skeleton-glow {
-    font-size: 3.5rem;
-    animation: glow 1.5s infinite ease-in-out;
-  }
-}
-
-@keyframes glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 1; }
-}
+// ==========================================================================
+// IMPORTACIÓN DE LOS 4 PARCIALES (1 POR CADA PÁGINA WEB)
+// ==========================================================================
+@import 'inicio';
+@import 'catalogo';
+@import 'detalle';
+@import 'carrito';
