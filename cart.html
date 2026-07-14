@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mi Carrito | UTP Marketplace</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
 
+  <!-- Encabezado con Flexbox Personalizado -->
   <header class="header-utp">
     <div class="container-utp header-container">
       <a class="brand" href="index.html" id="navbar-logo-link">
@@ -20,13 +21,74 @@
           <li><a href="catalog.html" id="nav-catalog-link">Catálogo</a></li>
           <li><a href="detail.html" id="nav-detail-link">Detalles</a></li>
           <li><a href="cart.html" class="btn-cart-nav active" id="nav-cart-btn">Mi Carrito</a></li>
+          <li><a href="admin.html" id="nav-admin-link">Admin</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main class="py-5" style="min-height: 70vh;">
-    
+  <main class="py-5" style="min-height: 80vh;">
+    <div class="container-utp">
+      
+      <h1 class="fw-bold mb-4 display-6 text-center">Mi Carrito de Compras</h1>
+
+      <!-- Mensaje de Carrito Vacío -->
+      <div class="text-center py-5 fade-in-on-load" id="empty-cart-message">
+        <h3 class="fw-bold text-muted">Tu carrito está vacío</h3>
+        <p class="text-muted">Navega por el catálogo de productos y agrega artículos para comprar.</p>
+        <a href="catalog.html" class="btn-utp px-4 py-2 mt-3 d-inline-block">Explorar Catálogo</a>
+      </div>
+
+      <!-- Layout Principal del Carrito (Oculto inicialmente si está vacío, controlado por JS) -->
+      <div class="cart-page-layout" id="cart-summary-box">
+        
+        <!-- Columna Izquierda: Tabla de Productos -->
+        <div class="cart-items-panel">
+          <div class="table-responsive">
+            <table class="table cart-table">
+              <thead>
+                <tr>
+                  <th>Artículo</th>
+                  <th>Precio</th>
+                  <th>Cantidad</th>
+                  <th>Total</th>
+                  <th class="text-center">Eliminar</th>
+                </tr>
+              </thead>
+              <tbody id="cart-table-body">
+                <!-- Renderizado dinámico desde main.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Columna Derecha: Resumen de Compra y Formulario de Contacto -->
+        <div class="cart-sidebar-panel">
+          
+          <!-- Resumen de Costos -->
+          <div class="summary-card-box mb-4">
+            <h3 class="summary-title mb-3">Resumen de la Compra</h3>
+            <div class="summary-row">
+              <span>Subtotal:</span>
+              <span id="summary-subtotal">S/ 0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Entrega / Comisión:</span>
+              <span class="text-success fw-bold">Gratis (Campus UTP)</span>
+            </div>
+            <hr>
+            <div class="summary-row total-row">
+              <span>Total:</span>
+              <span id="summary-total">S/ 0.00</span>
+            </div>
+            <button class="btn-utp w-100 py-3 mt-3" id="btn-checkout">Finalizar Compra</button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </main>
 
   <footer class="bg-dark text-white text-center py-4" id="site-footer">
@@ -36,6 +98,6 @@
   </footer>
 
   <script src="js/main.js"></script>
-
 </body>
 </html>
+
