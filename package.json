@@ -1,0 +1,20 @@
+{
+  "name": "utp-marketplace",
+  "version": "1.0.0",
+  "description": "UTP Marketplace - Proyecto Académico de CSS Avanzado e Integración con Base de Datos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build-css": "sass public/css/estilos.scss public/css/estilos.css --style=expanded --no-source-map",
+    "watch-css": "sass public/css/estilos.scss public/css/estilos.css --watch --style=expanded --no-source-map",
+    "dev": "concurrently \"node server.js\" \"npm run watch-css\""
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.10.1"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "sass": "^1.77.6"
+  }
+}
