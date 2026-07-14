@@ -1,4 +1,4 @@
-// server.js - Servidor Backend Express e Integración con MySQL para UTP Marketplace
+// Servidor Backend Express e Integración con MySQL
 
 const express = require('express');
 const mysql = require('mysql2/promise');
@@ -7,10 +7,10 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Configuración de credenciales de tu MySQL local (XAMPP / WampServer / Installer)
+// Configuración de credenciales
 const DB_HOST = 'localhost';
 const DB_USER = 'root';
-const DB_PASSWORD = '1234'; // Déjalo vacío si usas XAMPP por defecto
+const DB_PASSWORD = '1234'; 
 const DB_PORT = 3306;
 const DB_NAME = 'utp_marketplace';
 
@@ -79,8 +79,7 @@ async function initDatabase() {
   }
 }
 
-// ==================== ENDPOINTS DE LA API REST ====================
-
+// ENDPOINTS DE LA API REST
 // Obtener todos los productos
 app.get('/api/productos', async (req, res) => {
   try {
